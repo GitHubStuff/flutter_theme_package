@@ -1,0 +1,31 @@
+name: example
+description: For testing the flutter_theme_package
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.1.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  # have text auto size to fill/shrink space
+  auto_size_text: ^2.1.0
+  cupertino_icons: any
+  notifier: any
+  shared_preferences:
+  flutter_theme_package:
+    path: ../
+  flutter_tracers:
+    git:
+      url: https://github.com/GitHubStuff/flutter_tracers.git
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/
