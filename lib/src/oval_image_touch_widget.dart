@@ -73,7 +73,7 @@ class OvalImageTouchWidget extends StatefulWidget {
     String url,
   }) {
     assert(context != null);
-    final assetImage = (asset == null) ? AssetImage('images/spinningball200.gif', package: 'theme_package') : AssetImage(asset);
+    final assetImage = (asset == null) ? AssetImages.spinningBall : AssetImage(asset);
     final image =
         Image(image: assetImage, color: (color == null) ? ModeThemeData.productSwatch.color(context) : color.color(context));
     return OvalImageTouchWidget(

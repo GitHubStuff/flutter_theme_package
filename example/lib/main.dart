@@ -95,10 +95,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
     );
     final _customProgress = HudScaffold(
       hide: _hideSpinner,
-      progressIndicator: Image(
-        image: AssetImage('images/spinningball200.gif'),
-        color: ModeThemeData.primarySwatch.color(context),
-      ),
+      progressIndicator: Images.spinningBall(context),
       scaffold: _scaffold,
     );
 
@@ -250,7 +247,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
-                    assets: ['images/unknownPerson200.png'],
+                    assets: [AssetNames.unknownPerson],
                     colors: Swatch(bright: Colors.purpleAccent, dark: Colors.greenAccent),
                   ),
                   url: 'bogus',
@@ -258,10 +255,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Image(
-                        image: AssetImage('images/spinningball200.gif'),
-                        color: ModeThemeData.primarySwatch.color(context),
-                      ),
+                      Images.spinningBall(context, ModeThemeData.primarySwatch),
                       Center(child: Text('Error')),
                     ],
                   ),
@@ -270,10 +264,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Image(
-                        image: AssetImage('images/spinningball200.gif'),
-                        color: ModeThemeData.primarySwatch.color(context),
-                      ),
+                      Images.spinningBall(context, ModeThemeData.productSwatch),
                       Center(child: Text('works')),
                     ],
                   ),
@@ -282,10 +273,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Image(
-                        image: AssetImage('images/spinningball200.gif'),
-                        color: ModeThemeData.primarySwatch.color(context),
-                      ),
+                      Images.spinningBall(context, ModeThemeData.primarySwatch),
                       Center(child: Text('works')),
                     ],
                   ),
@@ -299,10 +287,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                   context,
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Image(
-                        image: AssetImage('images/spinningball200.gif'),
-                        color: ModeThemeData.primarySwatch.color(context),
-                      ),
+                      Images.spinningBall(context),
                       Center(child: Text('works')),
                     ],
                   ),

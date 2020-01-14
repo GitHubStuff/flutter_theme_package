@@ -1,5 +1,6 @@
 library flutter_theme_package;
 
+export 'src/asset_images.dart';
 export 'src/hud_scaffold.dart';
 export 'src/interval_text_widget.dart';
 export 'src/maskable_form_field.dart';

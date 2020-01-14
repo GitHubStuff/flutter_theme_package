@@ -43,12 +43,9 @@ class _NetworkErrorImage extends State<NetworkErrorImage> {
     _color = (widget.colors ?? ModeThemeData.productSwatch).color(context);
     // Handles the case where there are no assets or widgets or where code is used
     if ((widget.assets == null && widget.widgetStack == null) || widget.code != null) {
-      final spinner = Image(image: AssetImage('images/spinningball200.gif', package: 'theme_package'), color: _color);
+      final spinner = Images.spinningBall(context, widget.colors);
       final network = (widget.code == null)
-          ? Image(
-              image: AssetImage('images/networkerror256.png', package: 'theme_package'),
-              color: _color,
-            )
+          ? Images.networkError(context, widget.colors)
           : Center(
               child: AutoSizeText(
                 '${widget.code}',
@@ -78,7 +75,7 @@ class _NetworkErrorImage extends State<NetworkErrorImage> {
     assert(widget.assets.length > 0);
     List<Image> images = List();
     for (String asset in widget.assets) {
-      images.add(Image(image: AssetImage(asset), color: _color));
+      images.add(Image(image: AssetImage(asset) ?? AssetImage(asset, package: 'flutter_theme_package'), color: _color));
     }
     return Stack(children: images);
   }
