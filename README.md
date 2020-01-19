@@ -47,7 +47,3 @@ applications
 [WideAnimatedButton](https://github.com/GitHubStuff/theme_package/blob/develop/lib/src/wide_animated_button.dart)
 - Successor to WideButtonWidget, displays a button with subtle tap animation, and optional clock sound.
   Callbacks for KeyPress, DoubleTap, Tap, and LongPress
-
-[WideButtonWidget](https://github.com/SilversphereInc/theme_package/blob/master/lib/src/wide_button_widget.dart)
-- Widget that displays a button that scans the screen/container. Common button design with slightly
-  rounded corners, and is responsive to dark/light mode changes.
