@@ -10,4 +10,3 @@ export 'src/network_error_image.dart';
 export 'src/oval_image_touch_widget.dart';
 export 'src/time_helpers.dart';
 export 'src/wide_animated_button.dart';
-export 'src/wide_button_widget.dart';

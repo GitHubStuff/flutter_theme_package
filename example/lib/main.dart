@@ -134,14 +134,18 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
               'Zerky Template',
               style: Theme.of(context).textTheme.display1,
             ),
-            WideButtonWidget.prompt('Toggle Light/Dark Mode', onTap: () {
-              ModeTheme.of(context).toggleBrightness();
-            }),
-            WideButtonWidget.prompt(_standardSpinner ? 'Custom spin' : 'Standard Spin', onTap: () {
-              setState(() {
-                _standardSpinner = !_standardSpinner;
-              });
-            }),
+            WideAnimatedButton(
+                caption: 'Toggle Light/Dark Mode',
+                onTap: (a, b) {
+                  ModeTheme.of(context).toggleBrightness();
+                }),
+            WideAnimatedButton(
+                caption: _standardSpinner ? 'Custom spin' : 'Standard Spin',
+                onTap: (a, b) {
+                  setState(() {
+                    _standardSpinner = !_standardSpinner;
+                  });
+                }),
             Container(
               child: WideAnimatedButton(
                 colors: ModeThemeData.productSwatch,
@@ -155,7 +159,6 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                   Log.t('Long Press ${action.toString()} ${dateTime.toIso8601String()}');
                 },
               ),
-              height: 40.0,
               width: double.maxFinite,
             ),
             Padding(

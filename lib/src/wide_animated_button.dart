@@ -16,9 +16,14 @@ enum WideAnimatedButtonPress {
   up,
 }
 
+const _defaultHeight = 64.0;
+
 class WideAnimatedButton extends StatefulWidget {
   /// Add z-axis for 3-D Depth
   final List<BoxShadow> boxShadows;
+
+  /// String applied to center of button {default 'Press' if null}
+  final String caption;
 
   /// Widget in the center of the button. Defaults to Text()
   final Widget centerWidget;
@@ -37,8 +42,10 @@ class WideAnimatedButton extends StatefulWidget {
   /// Callback function to receive button up/down events
   final PressCallback onKeyPress;
   final PressCallback onLongPress;
-
   final PressCallback onTap;
+
+  /// Padding
+  final EdgeInsets padding;
 
   /// Play the SystemSoundType.click on press
   final bool playSystemClickSound;
@@ -53,27 +60,21 @@ class WideAnimatedButton extends StatefulWidget {
   WideAnimatedButton(
       {Key key,
       this.boxShadows,
-      this.centerWidget = const AutoSizeText(
-        'PRESS',
-        style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
+      this.caption = 'Press',
+      this.centerWidget,
       this.colors,
       this.gradient,
-      this.height = double.maxFinite,
+      this.height = _defaultHeight,
       this.onDoubleTap,
       this.onKeyPress,
       this.onLongPress,
       this.onTap,
+      this.padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
       this.playSystemClickSound = true,
       this.radius = 10.0,
       this.width = double.maxFinite})
-      : assert(centerWidget != null),
-        assert(gradient != null || colors != null),
+      : assert(centerWidget != null || caption != null),
         assert(height > 0.0),
-        assert(onKeyPress != null),
         assert(radius >= 0.0),
         assert(width > 0.0);
 
@@ -85,6 +86,7 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
   double _scale;
   AnimationController _controller;
   LinearGradient _gradient;
+  Widget centerWidget;
 
   @override
   void initState() {
@@ -98,6 +100,17 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
     )..addListener(() {
         setState(() {});
       });
+    if (widget.centerWidget != null) {
+      centerWidget = widget.centerWidget;
+    } else {
+      centerWidget = AutoSizeText(
+        widget.caption,
+        style: TextStyle(
+          fontSize: (widget.height ?? _defaultHeight) * 0.65,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
   }
 
   @override
@@ -130,25 +143,29 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
     if (_gradient == null) {
       /// If no gradient was passed, create one with identical begin and end colors
       /// to create a solid button color.
+      final colors = widget.colors ?? ModeThemeData.productSwatch;
       _gradient = widget.gradient ??
           LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [widget.colors.color(context), widget.colors.color(context)],
+            colors: [colors.color(context), colors.color(context)],
           );
     }
     _scale = 1 - _controller.value;
 
-    return GestureDetector(
-      child: Transform.scale(
-        scale: _scale,
-        child: _animatedButtonUI,
+    return Padding(
+      padding: widget.padding ?? const EdgeInsets.all(0.0),
+      child: GestureDetector(
+        child: Transform.scale(
+          scale: _scale,
+          child: _animatedButtonUI,
+        ),
+        onDoubleTap: () => _handler(widget.onDoubleTap),
+        onLongPress: () => _handler(widget.onLongPress),
+        onTap: () => _handler(widget.onTap),
+        onTapDown: _onTapDown,
+        onTapUp: _onTapUp,
       ),
-      onDoubleTap: () => _handler(widget.onDoubleTap),
-      onLongPress: () => _handler(widget.onLongPress),
-      onTap: () => _handler(widget.onTap),
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
     );
   }
 
@@ -161,7 +178,7 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
           gradient: _gradient,
         ),
         child: Center(
-          child: widget.centerWidget,
+          child: centerWidget,
         ),
       );
 }
