@@ -1,7 +1,7 @@
 name: flutter_theme_package
 description: A Flutter package to handle light/dark mode themes
-version: 0.0.1
-homepage:
+version: 0.0.2
+homepage: https://github.com/GitHubStuff/flutter_theme_package
 
 environment:
   sdk: '>=2.1.0 <3.0.0'
