@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 
-/// Provides and elegantly composed widget to display network error information/icon(s)
+/// Provides an elegantly composed widget to display network error information/icon(s)
 ///
 /// NOTES:
 ///   1) if 'code' is not null, the value will be displayed inside a mode-color animated gif
