@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tracers/trace.dart' as Log;
 import 'package:http/http.dart' as http;
 
 /// See [Article] at https://medium.com/flutter-community/handling-network-calls-like-a-pro-in-flutter-31bd30c86be1
@@ -97,6 +98,7 @@ class NetworkApi implements ApiBase {
   }
 
   Future<dynamic> postJson({@required String url, String token, Map<String, String> body}) async {
+    Log.t('postJson url => $url');
     final header = (token == null) ? null : {"Authorization": "$token", "Content-Type": "application/json"};
     var responseJson;
     try {
@@ -119,6 +121,7 @@ class NetworkApi implements ApiBase {
   /// any other errors are found and custom exceptions are thrown, this will wrap the response
   /// with information for the caller to respond to.
   dynamic _returnResponse(http.Response response) {
+    Log.t('network_apis.dart HTTP response status code ${response?.statusCode}');
     switch (response.statusCode) {
       case 200:
         var responseJson = json.decode(response.body.toString());
@@ -165,12 +168,13 @@ class NetworkMock implements ApiBase {
 
   @override
   Future getJson({String url, String token}) {
-    _returnResponse(null); //TODO:
+    Log.toDo('network_apis.dart - create getJson');
     return null;
   }
 
   @override
   Future postJson({String url, String token, Map<String, String> body}) {
+    Log.toDo('network_apis.dart - create postJson');
     _returnResponse(null); //TODO:
     return null;
   }

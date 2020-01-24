@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
+import 'package:flutter_tracers/trace.dart' as Log;
 
 /// Successor to WideButtonWidget, displays a button with subtle tap animation, and optional click sound.
 /// Callbacks for Double-Tap, Key-Press-Down/Up, Long-Press, Tap.
@@ -16,6 +17,7 @@ enum WideAnimatedButtonPress {
   up,
 }
 
+/// Button height if none is supplied
 const _defaultHeight = 64.0;
 
 class WideAnimatedButton extends StatefulWidget {
@@ -69,7 +71,7 @@ class WideAnimatedButton extends StatefulWidget {
       this.onKeyPress,
       this.onLongPress,
       this.onTap,
-      this.padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+      this.padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0),
       this.playSystemClickSound = true,
       this.radius = 10.0,
       this.width = double.maxFinite})
@@ -83,16 +85,16 @@ class WideAnimatedButton extends StatefulWidget {
 }
 
 class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTickerProviderStateMixin {
-  double _scale;
-  AnimationController _controller;
-  LinearGradient _gradient;
-  Widget centerWidget;
+  AnimationController animationController;
 
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(
+    Log.t('InitState WideAnimatedButton caption = ${widget.caption}');
+
+    /// AnimationController to do the scaling effect when the button is pressed
+    animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 100),
       lowerBound: 0.0,
@@ -100,87 +102,96 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
     )..addListener(() {
         setState(() {});
       });
-    if (widget.centerWidget != null) {
-      centerWidget = widget.centerWidget;
-    } else {
-      centerWidget = AutoSizeText(
-        widget.caption,
-        style: TextStyle(
-          fontSize: (widget.height ?? _defaultHeight) * 0.65,
-          fontWeight: FontWeight.bold,
-        ),
-      );
-    }
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
-  void _onTapDown(TapDownDetails details) {
-    _controller.forward();
-    _handler(widget.onKeyPress, false);
+  @override
+  Widget build(BuildContext context) {
+    Log.t('WideAnimatiedButton build()');
+    return Padding(
+      padding: widget.padding ?? const EdgeInsets.all(0.0),
+      child: GestureDetector(
+        child: Transform.scale(
+          scale: 1.0 - animationController.value,
+          child: animatedButtonUI(),
+        ),
+        onDoubleTap: () => handler(widget.onDoubleTap),
+        onLongPress: () => handler(widget.onLongPress),
+        onTap: () => handler(widget.onTap),
+        onTapDown: onTapDown,
+        onTapUp: onTapUp,
+      ),
+    );
   }
 
-  void _onTapUp(TapUpDetails details) {
-    _controller.reverse();
-    _handler(widget.onKeyPress, false, WideAnimatedButtonPress.up);
+  /// Create the container for the button before the center widget is applied
+  /// this keeps from having a deeply nested widget tree
+  Widget animatedButtonUI() {
+    return Container(
+      height: widget.height,
+      width: widget.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(widget.radius),
+        boxShadow: widget.boxShadows,
+        gradient: getGradient(),
+      ),
+      child: Center(
+        child: centerWidget(),
+      ),
+    );
   }
 
-  void _handler(PressCallback function, [bool tick, WideAnimatedButtonPress action = WideAnimatedButtonPress.down]) {
+  /// Create the widget in the center of the button, either by returning the supplied
+  /// widget (widget.centerWidget), or composing a AutoSizeText using the provided caption string
+  Widget centerWidget() => (widget.centerWidget != null)
+      ? widget.centerWidget
+      : AutoSizeText(
+          widget.caption,
+          style: TextStyle(
+            fontSize: (widget.height ?? _defaultHeight) * 0.45,
+            fontWeight: FontWeight.bold,
+          ),
+        );
+
+  /// Return the value pass for gradient, if null then create a solid color gradient by passing
+  /// the Product swatch as both the start and end colors
+  LinearGradient getGradient() {
+    final colors = widget.colors ?? ModeThemeData.productSwatch;
+    return widget.gradient ??
+        LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [colors.color(context), colors.color(context)],
+        );
+  }
+
+  /// Common handler for all the taps, double tap, long press etc handled by the widget
+  void handler(PressCallback function, [bool tick, WideAnimatedButtonPress action = WideAnimatedButtonPress.down]) {
     tick ??= widget.playSystemClickSound;
     assert(action != null);
     if (function != null) {
+      /// If the caller requested a keyclick sound, make sure it is only on the down press
       if (action == WideAnimatedButtonPress.down && (tick ?? false)) SystemSound.play(SystemSoundType.click);
       function(action, DateTime.now().toUtc());
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (_gradient == null) {
-      /// If no gradient was passed, create one with identical begin and end colors
-      /// to create a solid button color.
-      final colors = widget.colors ?? ModeThemeData.productSwatch;
-      _gradient = widget.gradient ??
-          LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [colors.color(context), colors.color(context)],
-          );
-    }
-    _scale = 1 - _controller.value;
-
-    return Padding(
-      padding: widget.padding ?? const EdgeInsets.all(0.0),
-      child: GestureDetector(
-        child: Transform.scale(
-          scale: _scale,
-          child: _animatedButtonUI,
-        ),
-        onDoubleTap: () => _handler(widget.onDoubleTap),
-        onLongPress: () => _handler(widget.onLongPress),
-        onTap: () => _handler(widget.onTap),
-        onTapDown: _onTapDown,
-        onTapUp: _onTapUp,
-      ),
-    );
+  /// Handler method for tap down makes the animate controller 'compress' the button image
+  void onTapDown(TapDownDetails details) {
+    animationController.forward();
+    handler(widget.onKeyPress, false);
   }
 
-  Widget get _animatedButtonUI => Container(
-        height: widget.height,
-        width: widget.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.radius),
-          boxShadow: widget.boxShadows,
-          gradient: _gradient,
-        ),
-        child: Center(
-          child: centerWidget,
-        ),
-      );
+  /// Handler method on the tap up to resize the button image back to its layout size
+  void onTapUp(TapUpDetails details) {
+    animationController.reverse();
+    handler(widget.onKeyPress, false, WideAnimatedButtonPress.up);
+  }
 }
 
 /// Example of box shadow that adds a 0.8-opacity black shadow

@@ -17,28 +17,28 @@ class MyApp extends StatelessWidget {
       defaultBrightness: Brightness.light,
       themedWidgetBuilder: (context, theme) {
         return MaterialApp(
-          home: Zerky(),
+          home: Exampler(),
           initialRoute: '/',
           routes: {
-            Zerky.route: (context) => MyApp(),
+            Exampler.route: (context) => MyApp(),
           },
           theme: theme,
-          title: 'Zerky Demo',
+          title: 'Exampler Demo',
         );
       },
     );
   }
 }
 
-class Zerky extends StatefulWidget {
-  const Zerky({Key key}) : super(key: key);
-  static const route = '/zerky';
+class Exampler extends StatefulWidget {
+  const Exampler({Key key}) : super(key: key);
+  static const route = '/exampler';
 
   @override
-  _Zerky createState() => _Zerky();
+  _Exampler createState() => _Exampler();
 }
 
-class _Zerky extends State<Zerky> with WidgetsBindingObserver {
+class _Exampler extends State<Exampler> with WidgetsBindingObserver {
   bool _standardSpinner = true;
   bool _hideSpinner = true;
   String _url = 'http://tineye.com/images/widgets/mona.jpg';
@@ -55,32 +55,34 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
   @override
   didChangeDependencies() {
     super.didChangeDependencies();
-    Log.t('zerky didChangeDependencies');
+    Log.t('exampler didChangeDependencies');
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    Log.t('zerky didChangeAppLifecycleState ${state.toString()}');
+    Log.t('exampler didChangeAppLifecycleState ${state.toString()}');
   }
 
   @override
   void didChangePlatformBrightness() {
     final Brightness brightness = WidgetsBinding.instance.window.platformBrightness;
     ModeTheme.of(context).setBrightness(brightness);
-    Log.t('zerky didChangePlatformBrightness ${brightness.toString()}');
+    Log.t('exampler didChangePlatformBrightness ${brightness.toString()}');
   }
 
   @override
   Widget build(BuildContext context) {
-    Log.t('zerky build');
+    Log.t('exampler build');
     final _scaffold = Scaffold(
       appBar: AppBar(
-        title: Text('Title: zerky'),
+        title: Text('Title: exampler'),
       ),
       body: body(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _showHud();
+          setState(() {
+            _showHud();
+          });
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),
@@ -104,19 +106,19 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
 
   @override
   void didUpdateWidget(Widget oldWidget) {
-    Log.t('zerky didUpdateWidget');
+    Log.t('exampler didUpdateWidget');
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void deactivate() {
-    Log.t('zerky deactivate');
+    Log.t('exampler deactivate');
     super.deactivate();
   }
 
   @override
   void dispose() {
-    Log.t('zerky dispose');
+    Log.t('exampler dispose');
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -125,35 +127,40 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
   Widget body() {
     final otherUrl = 'https://www.techsupportalert.com/files/images/Newtons-Cradle-Animation-200-150-Opt.gif';
     final url = 'http://tineye.com/images/widgets/mona.jpg';
+    Log.t('Line ~143 body()');
     return Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Zerky Template',
+              'Exampler Template',
               style: Theme.of(context).textTheme.display1,
             ),
             WideAnimatedButton(
                 caption: 'Toggle Light/Dark Mode',
-                onTap: (a, b) {
-                  ModeTheme.of(context).toggleBrightness();
-                }),
+                onTap: (a, b) => () {
+                      ModeTheme.of(context).toggleBrightness();
+                    }),
             WideAnimatedButton(
-                caption: _standardSpinner ? 'Custom spin' : 'Standard Spin',
-                onTap: (a, b) {
-                  setState(() {
-                    _standardSpinner = !_standardSpinner;
-                  });
+                caption: _standardSpinner ? 'Switch to Custom' : 'Switch to Standard',
+                padding: EdgeInsets.symmetric(horizontal: 46.0),
+                onKeyPress: (a, b) {
+                  if (a == WideAnimatedButtonPress.down) {
+                    setState(() {
+                      _standardSpinner = !_standardSpinner;
+                    });
+                  }
                 }),
             Container(
               child: WideAnimatedButton(
+                caption: 'Test Taps',
                 colors: ModeThemeData.productSwatch,
                 onDoubleTap: (action, dateTime) {
                   Log.t('Double Tap ${action.toString()} ${dateTime.toIso8601String()}');
                 },
                 onKeyPress: (action, dateTime) {
-                  Log.t('Animated ${action.toString()} ${dateTime.toIso8601String()}');
+                  Log.t('onKeyPress ${action.toString()} ${dateTime.toIso8601String()}');
                 },
                 onLongPress: (action, dateTime) {
                   Log.t('Long Press ${action.toString()} ${dateTime.toIso8601String()}');
@@ -235,25 +242,25 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                   ),
                 ),
                 OvalImageTouchWidget(
-                  url: 'bogus',
+                  url: 'intentallyBad_1',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(),
-                  url: 'bogus',
+                  url: 'intentallyBad_2',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     code: 404,
                     colors: Swatch(bright: Colors.greenAccent, dark: Colors.redAccent),
                   ),
-                  url: 'bogus',
+                  url: 'intentallyBad3',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     assets: [AssetNames.unknownPerson],
                     colors: Swatch(bright: Colors.purpleAccent, dark: Colors.greenAccent),
                   ),
-                  url: 'bogus',
+                  url: 'intentallyBad_4',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
@@ -262,7 +269,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver {
                       Center(child: Text('Error')),
                     ],
                   ),
-                  url: 'bogus',
+                  url: 'intentallyBad_5',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
