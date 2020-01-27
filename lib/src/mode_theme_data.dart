@@ -2,45 +2,47 @@ import 'package:flutter/material.dart';
 
 /// Font sizes for the TextTheme.
 /// These are set here as they are used when creating light/dark mode for TextThemes.
-final _display4Size = 114.0;
-final _display3Size = 56.0;
-final _display2Size = 45.0;
-final _display1Size = 34.0;
-final _headlineSize = 24.0;
-final _titleSize = 20.0;
-final _subtitleSize = 18.0;
-final _subheadSize = 16.0;
-final _body2Size = 14.0;
-final _body1Size = 14.0;
-final _captionSize = 12.0;
-final _buttonFontSize = 24.0;
+double get display4Size => 114.0;
+double get display3Size => 56.0;
+double get display2Size => 45.0;
+double get display1Size => 34.0;
+double get headlineSize => 24.0;
+double get titleSize => 20.0;
+double get subtitleSize => 18.0;
+double get subheadSize => 16.0;
+double get body2Size => 14.0;
+double get body1Size => 14.0;
+double get captionSize => 12.0;
+double get buttonFontSize => 24.0;
 
-enum TextSizes { display4, display3, display2, display1, headline, subtitle, subhead, body2, body1, caption, button }
+enum TextSizes { display4, display3, display2, display1, headline, title, subtitle, subhead, body2, body1, caption, button }
 
 double getTextSizes(TextSizes textSize) {
   switch (textSize) {
     case TextSizes.display4:
-      return _display4Size;
+      return display4Size;
     case TextSizes.display3:
-      return _display3Size;
+      return display3Size;
     case TextSizes.display2:
-      return _display2Size;
+      return display2Size;
     case TextSizes.display1:
-      return _display1Size;
+      return display1Size;
     case TextSizes.headline:
-      return _headlineSize;
+      return headlineSize;
+    case TextSizes.title:
+      return titleSize;
     case TextSizes.subtitle:
-      return _subtitleSize;
+      return subtitleSize;
     case TextSizes.subhead:
-      return _subheadSize;
+      return subheadSize;
     case TextSizes.body2:
-      return _body2Size;
+      return body2Size;
     case TextSizes.body1:
-      return _body1Size;
+      return body1Size;
     case TextSizes.caption:
-      return _captionSize;
+      return captionSize;
     case TextSizes.button:
-      return _buttonFontSize;
+      return buttonFontSize;
   }
   throw Exception('Unknown size ${textSize.toString()}');
 }
@@ -183,39 +185,39 @@ class ModeThemeData {
   static const String fontFamily = 'Roboto';
 
   static final TextTheme _kTextThemeWhite = _kTypography.white.copyWith(
-    display4: _kTypography.white.display4.copyWith(fontFamily: fontFamily, fontSize: _display4Size),
-    display3: _kTypography.white.display3.copyWith(fontFamily: fontFamily, fontSize: _display3Size),
-    display2: _kTypography.white.display2.copyWith(fontFamily: fontFamily, fontSize: _display2Size),
-    display1: _kTypography.white.display1.copyWith(fontFamily: fontFamily, fontSize: _display1Size),
-    headline: _kTypography.white.headline.copyWith(fontFamily: fontFamily, fontSize: _headlineSize),
-    title: _kTypography.white.title.copyWith(fontFamily: fontFamily, fontSize: _titleSize),
-    subtitle: _kTypography.white.subhead.copyWith(fontFamily: fontFamily, fontSize: _subtitleSize),
-    subhead: _kTypography.white.subhead.copyWith(fontFamily: fontFamily, fontSize: _subheadSize),
-    body2: _kTypography.white.body2.copyWith(fontFamily: fontFamily, fontSize: _body2Size, fontWeight: FontWeight.bold),
-    body1: _kTypography.white.body1.copyWith(fontFamily: fontFamily, fontSize: _body1Size),
-    caption: _kTypography.white.caption.copyWith(fontFamily: fontFamily, fontSize: _captionSize),
+    display4: _kTypography.white.display4.copyWith(fontFamily: fontFamily, fontSize: display4Size),
+    display3: _kTypography.white.display3.copyWith(fontFamily: fontFamily, fontSize: display3Size),
+    display2: _kTypography.white.display2.copyWith(fontFamily: fontFamily, fontSize: display2Size),
+    display1: _kTypography.white.display1.copyWith(fontFamily: fontFamily, fontSize: display1Size),
+    headline: _kTypography.white.headline.copyWith(fontFamily: fontFamily, fontSize: headlineSize),
+    title: _kTypography.white.title.copyWith(fontFamily: fontFamily, fontSize: titleSize),
+    subtitle: _kTypography.white.subhead.copyWith(fontFamily: fontFamily, fontSize: subtitleSize),
+    subhead: _kTypography.white.subhead.copyWith(fontFamily: fontFamily, fontSize: subheadSize),
+    body2: _kTypography.white.body2.copyWith(fontFamily: fontFamily, fontSize: body2Size, fontWeight: FontWeight.bold),
+    body1: _kTypography.white.body1.copyWith(fontFamily: fontFamily, fontSize: body1Size),
+    caption: _kTypography.white.caption.copyWith(fontFamily: fontFamily, fontSize: captionSize),
     button: _kTypography.white.button.copyWith(
       fontFamily: fontFamily,
-      fontSize: _buttonFontSize,
+      fontSize: buttonFontSize,
       color: productSwatch.bright,
     ),
   );
 
   static final TextTheme _kTextThemeBlack = _kTypography.black.copyWith(
-      display4: _kTypography.black.display4.copyWith(fontFamily: fontFamily, fontSize: _display4Size),
-      display3: _kTypography.black.display3.copyWith(fontFamily: fontFamily, fontSize: _display3Size),
-      display2: _kTypography.black.display2.copyWith(fontFamily: fontFamily, fontSize: _display2Size),
-      display1: _kTypography.black.display1.copyWith(fontFamily: fontFamily, fontSize: _display1Size),
-      headline: _kTypography.black.headline.copyWith(fontFamily: fontFamily, fontSize: _headlineSize),
-      title: _kTypography.black.title.copyWith(fontFamily: fontFamily, fontSize: _titleSize),
-      subtitle: _kTypography.black.title.copyWith(fontFamily: fontFamily, fontSize: _subtitleSize),
-      subhead: _kTypography.black.subhead.copyWith(fontFamily: fontFamily, fontSize: _subheadSize),
-      body2: _kTypography.black.body2.copyWith(fontFamily: fontFamily, fontSize: _body2Size, fontWeight: FontWeight.bold),
-      body1: _kTypography.black.body1.copyWith(fontFamily: fontFamily, fontSize: _body1Size),
-      caption: _kTypography.black.caption.copyWith(fontFamily: fontFamily, fontSize: _captionSize),
+      display4: _kTypography.black.display4.copyWith(fontFamily: fontFamily, fontSize: display4Size),
+      display3: _kTypography.black.display3.copyWith(fontFamily: fontFamily, fontSize: display3Size),
+      display2: _kTypography.black.display2.copyWith(fontFamily: fontFamily, fontSize: display2Size),
+      display1: _kTypography.black.display1.copyWith(fontFamily: fontFamily, fontSize: display1Size),
+      headline: _kTypography.black.headline.copyWith(fontFamily: fontFamily, fontSize: headlineSize),
+      title: _kTypography.black.title.copyWith(fontFamily: fontFamily, fontSize: titleSize),
+      subtitle: _kTypography.black.title.copyWith(fontFamily: fontFamily, fontSize: subtitleSize),
+      subhead: _kTypography.black.subhead.copyWith(fontFamily: fontFamily, fontSize: subheadSize),
+      body2: _kTypography.black.body2.copyWith(fontFamily: fontFamily, fontSize: body2Size, fontWeight: FontWeight.bold),
+      body1: _kTypography.black.body1.copyWith(fontFamily: fontFamily, fontSize: body1Size),
+      caption: _kTypography.black.caption.copyWith(fontFamily: fontFamily, fontSize: captionSize),
       button: _kTypography.black.button.copyWith(
         fontFamily: fontFamily,
-        fontSize: _buttonFontSize,
+        fontSize: buttonFontSize,
         color: productSwatch.dark,
       ));
 

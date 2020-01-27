@@ -1,7 +1,7 @@
 name: flutter_theme_package
 description: A Flutter package to handle light/dark mode themes
-version: 0.0.2+1
-homepage:
+version: 0.0.3+1
+homepage: https://www.silversphere.com
 
 environment:
   sdk: '>=2.1.0 <3.0.0'
@@ -22,7 +22,7 @@ dependencies:
   # and genders, date/number formatting and parsing, and bidirectional text.
   intl: ^0.16.1
   notifier: ^1.0.2
-  shared_preferences: ^0.5.6
+  shared_preferences: ^0.5.6+1
   transparent_image: ^1.0.0
 
 dev_dependencies:
