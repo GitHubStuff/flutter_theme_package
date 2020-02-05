@@ -99,7 +99,7 @@ class _OvalImageTouchWidget extends State<OvalImageTouchWidget> {
     final gesture = GestureDetector(
       child: ClipOval(
         child: CachedNetworkImage(
-          imageUrl: widget.url,
+          imageUrl: widget.url ?? '',
           placeholder: (context, url) => placeholderWidget,
           errorWidget: (context, url, error) {
             return (widget.error != null)
