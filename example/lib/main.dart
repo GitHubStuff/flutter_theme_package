@@ -139,9 +139,9 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
             ),
             WideAnimatedButton(
                 caption: 'Toggle Light/Dark Mode',
-                onTap: (a, b) => () {
-                      ModeTheme.of(context).toggleBrightness();
-                    }),
+                onTap: (a, b) {
+                  ModeTheme.of(context).toggleBrightness();
+                }),
             WideAnimatedButton(
                 caption: _standardSpinner ? 'Switch to Custom' : 'Switch to Standard',
                 padding: EdgeInsets.symmetric(horizontal: 46.0),

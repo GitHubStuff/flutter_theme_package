@@ -120,9 +120,18 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
           scale: 1.0 - animationController.value,
           child: animatedButtonUI(),
         ),
-        onDoubleTap: () => handler(widget.onDoubleTap),
-        onLongPress: () => handler(widget.onLongPress),
-        onTap: () => handler(widget.onTap),
+        onDoubleTap: () {
+          Log.t('wide_animtated_button: onDoubleTap callback ${widget.onDoubleTap.toString()}');
+          handler(widget.onDoubleTap);
+        },
+        onLongPress: () {
+          Log.t('wide_animtated_button: onLongPress callback ${widget.onLongPress.toString()}');
+          handler(widget.onLongPress);
+        },
+        onTap: () {
+          Log.t('wide_animtated_button: onTap callback ${widget.onTap.toString()}');
+          handler(widget.onTap);
+        },
         onTapDown: onTapDown,
         onTapUp: onTapUp,
       ),
