@@ -1,6 +1,6 @@
 name: flutter_theme_package
 description: A Flutter package to handle light/dark mode themes
-version: 0.0.4+2
+version: 0.0.4+3
 homepage: https://www.silversphere.com
 
 environment:

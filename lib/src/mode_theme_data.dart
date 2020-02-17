@@ -15,7 +15,21 @@ double get body1Size => 14.0;
 double get captionSize => 12.0;
 double get buttonFontSize => 24.0;
 
-enum TextSizes { display4, display3, display2, display1, headline, title, subtitle, subhead, body2, body1, caption, button }
+enum TextSizes {
+  display4,
+  display3,
+  display2,
+  display1,
+  headline,
+  title,
+  subtitle,
+  subhead,
+  body2,
+  body1,
+  caption,
+  button,
+  custom,
+}
 enum TextWeights { Block, Bold, Normal }
 
 FontWeight weight(TextWeights textWeights) {
@@ -30,7 +44,7 @@ FontWeight weight(TextWeights textWeights) {
   throw Exception('Unknown weight $textWeights');
 }
 
-double getTextSizes(TextSizes textSize) {
+double getTextSizes(TextSizes textSize, {double customSize}) {
   switch (textSize) {
     case TextSizes.display4:
       return display4Size;
@@ -56,6 +70,9 @@ double getTextSizes(TextSizes textSize) {
       return captionSize;
     case TextSizes.button:
       return buttonFontSize;
+    case TextSizes.custom:
+      assert(customSize != null && customSize > 6.0);
+      return customSize;
   }
   throw Exception('Unknown size ${textSize.toString()}');
 }
