@@ -16,6 +16,19 @@ double get captionSize => 12.0;
 double get buttonFontSize => 24.0;
 
 enum TextSizes { display4, display3, display2, display1, headline, title, subtitle, subhead, body2, body1, caption, button }
+enum TextWeights { Block, Bold, Normal }
+
+FontWeight weight(TextWeights textWeights) {
+  switch (textWeights) {
+    case TextWeights.Block:
+      return FontWeight.w900;
+    case TextWeights.Bold:
+      return FontWeight.w800;
+    case TextWeights.Normal:
+      return FontWeight.normal;
+  }
+  throw Exception('Unknown weight $textWeights');
+}
 
 double getTextSizes(TextSizes textSize) {
   switch (textSize) {
