@@ -8,7 +8,7 @@ applications
 [HudScaffold](https://github.com/SilversphereInc/theme_package/blob/master/lib/src/hud_scaffold.dart)
 - A widget that overlays the screen and display a spinner and message (eg: 'Logging in')
 
-[IntervalTextWidget](https://github.com/GitHubStuff/theme_package/blob/develop/lib/src/interval_text_widget.dart)
+[IntervalTextWidget](https://github.com/GitHubStuff/flutter_theme_package/blob/master/lib/src/interval_text_widget.dart)
 - Creates a Text widget that displays an updating interval (days, hours, minutes, optional seconds) between
   a start time and the current time. (A fixed end-time can be supplied for non-changing interval)
   Seconds can be excluded/included and the style of negative intervals can be modified using a callback.
