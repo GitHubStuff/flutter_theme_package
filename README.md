@@ -27,7 +27,7 @@ applications
   custom schemes for [Silversphere](https://www.silversphere.com) mobile applications.
   **NOTE:** Includes class 'Swatch' for creating colors pairs for light dark modes.
 
-[NetworkApis](https://github.com/GitHubStuff/theme_package/blob/develop/lib/src/network_apis.dart)
+[NetworkApis](https://github.com/GitHubStuff/flutter_theme_package/blob/master/lib/src/network_apis.dart)
 - Class/Collection to wrap apis in custom helper class with responses that report HTTP status clearly
   and negates much of there error checking work done further up the call chain.
 
