@@ -100,10 +100,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ea702168b572fd1371f1ee3e5a6c389367942598
-      url: "https://github.com/GitHubStuff/flutter_tracers.git"
+      resolved-ref: "7cca4500d46aedce9ce3edc0ec6797aabc3751df"
+      url: "https://github.com/SilversphereInc/flutter_tracers.git"
     source: git
-    version: "0.1.4+1"
+    version: "0.1.4+2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
