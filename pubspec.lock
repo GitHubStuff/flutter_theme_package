@@ -100,10 +100,10 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ea702168b572fd1371f1ee3e5a6c389367942598
-      url: "https://github.com/GitHubStuff/flutter_tracers.git"
+      resolved-ref: "3a1d225e7f7d457f7db00feab3656590369a8794"
+      url: "https://github.com/SilversphereInc/flutter_tracers.git"
     source: git
-    version: "0.1.4+1"
+    version: "0.1.4+2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -164,7 +164,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.1"
   pedantic:
     dependency: transitive
     description:
@@ -199,28 +199,28 @@ packages:
       name: shared_preferences
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.5.6+1"
+    version: "0.5.6+2"
   shared_preferences_macos:
     dependency: transitive
     description:
       name: shared_preferences_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+5"
+    version: "0.0.1+6"
   shared_preferences_platform_interface:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.1"
+    version: "1.0.3"
   shared_preferences_web:
     dependency: transitive
     description:
       name: shared_preferences_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.2+3"
+    version: "0.1.2+4"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -239,7 +239,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.2.1"
   stack_trace:
     dependency: transitive
     description:

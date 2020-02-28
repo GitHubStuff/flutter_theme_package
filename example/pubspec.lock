@@ -101,16 +101,16 @@ packages:
       path: ".."
       relative: true
     source: path
-    version: "0.0.4+3"
+    version: "0.0.4+5"
   flutter_tracers:
     dependency: "direct main"
     description:
       path: "."
       ref: HEAD
-      resolved-ref: ea702168b572fd1371f1ee3e5a6c389367942598
-      url: "https://github.com/GitHubStuff/flutter_tracers.git"
+      resolved-ref: "3a1d225e7f7d457f7db00feab3656590369a8794"
+      url: "https://github.com/SilversphereInc/flutter_tracers.git"
     source: git
-    version: "0.1.4+1"
+    version: "0.1.4+2"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
