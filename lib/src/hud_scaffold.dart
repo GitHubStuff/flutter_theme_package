@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 
 ///
@@ -14,7 +15,7 @@ import 'package:flutter_theme_package/flutter_theme_package.dart';
 ///
 class HudScaffold extends StatelessWidget {
   /// Light/Dark mode colors of the layer on top of the scaffold (default: Black/Brown at 0.8 opacity)
-  final Swatch backgroundColors;
+  final ModeColor backgroundColors;
 
   /// If true the layer is dismissible with a tap (default: False)
   final bool dismissible;
@@ -56,7 +57,7 @@ class HudScaffold extends StatelessWidget {
     Key key,
 
     /// Light/Dark mode colors for the layer between the scaffold and the HUD (default: Black/Brown)
-    Swatch backgroundColors,
+    ModeColor backgroundColors,
 
     /// True HUD is dismissible by touch
     bool dismissible = false,
@@ -65,13 +66,13 @@ class HudScaffold extends StatelessWidget {
     @required bool hide,
 
     /// Colors that is applied spinner created spinner and AdjustedText built with 'progressText'
-    /// (default: ModeThemeData.productSwatch)
-    Swatch indicatorColors,
+    /// (default: ModeThemeData.productModeColor)
+    ModeColor indicatorColors,
 
     /// Offset for the spinner and progressText (default: center)
     Offset offset,
 
-    /// String that will be wrapped in AdjustedSize widget with either 'indicatorColors' or ModeThemeData.productSwatch colors.
+    /// String that will be wrapped in AdjustedSize widget with either 'indicatorColors' or ModeThemeData.productModeColor colors.
     @required String progressText,
 
     /// Parent scaffold that is layered over with the HUD
@@ -82,7 +83,7 @@ class HudScaffold extends StatelessWidget {
   }) {
     assert(context != null);
     assert(size != null && size.height != null && size.width != null);
-    final indicatorColor = (indicatorColors ?? ModeThemeData.productSwatch).color(context);
+    final indicatorColor = (indicatorColors ?? ModeThemeData.productModeColor).color(context);
     final _progressMessage = AutoSizeText(
       progressText ?? '',
       style: Theme.of(context).textTheme.title.copyWith(color: indicatorColor),
@@ -130,7 +131,7 @@ class HudScaffold extends StatelessWidget {
       );
     }
 
-    final _backgroundColor = (backgroundColors ?? Swatch(bright: Colors.black, dark: Colors.brown, alpha: 0.80)).color(context);
+    final _backgroundColor = (backgroundColors ?? ModeColor(bright: Colors.black, dark: Colors.brown, alpha: 0.80)).color(context);
     return Scaffold(
       body: Stack(
         children: [

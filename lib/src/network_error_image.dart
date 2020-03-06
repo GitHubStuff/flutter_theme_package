@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 
 /// Provides an elegantly composed widget to display network error information/icon(s)
@@ -12,7 +13,7 @@ import 'package:flutter_theme_package/flutter_theme_package.dart';
 ///   4) if 'widgetStack' doesn't not have any mode-ready coloring applied
 ///   5) if 'widgetStack' is not null, it must have at least one widget
 ///   6) if 'assets' is not null, then 'widgetStack' must be null, and 'assets' must have at least one asset name
-///   7) if 'assets' is not null, the colors of all assets are set to 'colors' or to ModeThemeData.productSwatch if 'colors' is null
+///   7) if 'assets' is not null, the colors of all assets are set to 'colors' or to ModeThemeData.productModeColor if 'colors' is null
 ///
 class NetworkErrorImage extends StatefulWidget {
   /// List of image assets that are stacked and displayed (if set 'widgetStack' must be null)
@@ -22,8 +23,8 @@ class NetworkErrorImage extends StatefulWidget {
   /// Best used for HTTP code reporting, if not null it will override the use of 'assets' and 'widgetState'
   final int code;
 
-  /// ModeTheme.productSwatch is used for 'assets' color, and 'code' display, unless overridden here
-  final Swatch colors;
+  /// ModeTheme.productModeColor is used for 'assets' color, and 'code' display, unless overridden here
+  final ModeColor colors;
 
   /// Widgets that will be stacked to create a composite widget. If used 'assets', and 'colors' must be null
   /// and each widget supplies its color.
@@ -40,7 +41,7 @@ class _NetworkErrorImage extends State<NetworkErrorImage> {
   @override
   Widget build(BuildContext context) {
     // Get the single color for light or dark mode
-    _color = (widget.colors ?? ModeThemeData.productSwatch).color(context);
+    _color = (widget.colors ?? ModeThemeData.productModeColor).color(context);
     // Handles the case where there are no assets or widgets or where code is used
     if ((widget.assets == null && widget.widgetStack == null) || widget.code != null) {
       final spinner = Images.spinningBall(context, widget.colors);

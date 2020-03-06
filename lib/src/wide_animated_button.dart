@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 import 'package:flutter_tracers/trace.dart' as Log;
 
@@ -31,7 +32,7 @@ class WideAnimatedButton extends StatefulWidget {
   final Widget centerWidget;
 
   /// If a gradient IS NOT specified, there must be a color
-  final Swatch colors;
+  final ModeColor colors;
 
   /// Display a gradient for the button background, if null use 'color'
   final LinearGradient gradient;
@@ -168,9 +169,9 @@ class _WideAnimatedButtonState extends State<WideAnimatedButton> with SingleTick
         );
 
   /// Return the value pass for gradient, if null then create a solid color gradient by passing
-  /// the Product swatch as both the start and end colors
+  /// the Product modeColor as both the start and end colors
   LinearGradient getGradient() {
-    final colors = widget.colors ?? ModeThemeData.productSwatch;
+    final colors = widget.colors ?? ModeThemeData.productModeColor;
     return widget.gradient ??
         LinearGradient(
           begin: Alignment.topLeft,

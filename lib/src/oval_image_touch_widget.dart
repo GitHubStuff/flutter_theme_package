@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 
 /// Widget that will fetch an image from the url and display in Oval shaped container, also has places holders for loading, and
@@ -52,7 +53,7 @@ class OvalImageTouchWidget extends StatefulWidget {
     String asset,
 
     /// Light/Dark mode colors that will be applied to the 'asset'
-    Swatch color,
+    ModeColor color,
 
     /// Time to transition from placeholder image to downloaded image (default: 250ms)
     Duration duration,
@@ -75,7 +76,7 @@ class OvalImageTouchWidget extends StatefulWidget {
     assert(context != null);
     final assetImage = (asset == null) ? AssetImages.spinningBall : AssetImage(asset);
     final image =
-        Image(image: assetImage, color: (color == null) ? ModeThemeData.productSwatch.color(context) : color.color(context));
+        Image(image: assetImage, color: (color == null) ? ModeThemeData.productModeColor.color(context) : color.color(context));
     return OvalImageTouchWidget(
       key: key,
       duration: duration = const Duration(milliseconds: 250),
@@ -106,7 +107,7 @@ class _OvalImageTouchWidget extends State<OvalImageTouchWidget> {
                 ? widget.error(context, url, error)
                 : Icon(
                     Icons.error,
-                    color: ModeThemeData.productSwatch.color(context),
+                    color: ModeThemeData.productModeColor.color(context),
                     size: min(widget.size.height, widget.size.width),
                   );
           },

@@ -5,6 +5,7 @@
 /// bool startShown - initial visibility property
 ///
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 
 /// Widget that expands on the TextFormField with the addition of
@@ -18,7 +19,7 @@ class MaskableFormField extends StatefulWidget {
   final FocusNode focusNode;
 
   /// Light/Dark colors for iconHide and iconShow (default = ModeThemeData.iconColors)
-  final Swatch iconColors;
+  final ModeColor iconColors;
 
   /// Icon data when the state is to show text (is source of tap, default is Icons.visibility_off)
   final IconData iconHide;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 
 class AssetNames {
@@ -16,13 +17,13 @@ class AssetImages {
 }
 
 class Images {
-  static Image _make(BuildContext context, AssetImage image, Swatch colors) {
-    final color = (colors != null) ? colors.color(context) : ModeThemeData.productSwatch.color(context);
+  static Image _make(BuildContext context, AssetImage image, ModeColor colors) {
+    final color = (colors != null) ? colors.color(context) : ModeThemeData.productModeColor.color(context);
     return Image(image: image, color: color);
   }
 
-  static Image networkError(BuildContext context, [Swatch colors]) => _make(context, AssetImages.networkError, colors);
-  static Image person(BuildContext context, [Swatch colors]) => _make(context, AssetImages.person, colors);
-  static Image spinningBall(BuildContext context, [Swatch colors]) => _make(context, AssetImages.spinningBall, colors);
-  static Image unknownPerson(BuildContext context, [Swatch colors]) => _make(context, AssetImages.unknownPerson, colors);
+  static Image networkError(BuildContext context, [ModeColor colors]) => _make(context, AssetImages.networkError, colors);
+  static Image person(BuildContext context, [ModeColor colors]) => _make(context, AssetImages.person, colors);
+  static Image spinningBall(BuildContext context, [ModeColor colors]) => _make(context, AssetImages.spinningBall, colors);
+  static Image unknownPerson(BuildContext context, [ModeColor colors]) => _make(context, AssetImages.unknownPerson, colors);
 }

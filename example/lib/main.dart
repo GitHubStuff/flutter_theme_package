@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 import 'package:flutter_theme_package/flutter_theme_package.dart';
 import 'package:flutter_tracers/trace.dart' as Log;
 import 'package:notifier/notifier_provider.dart';
@@ -91,7 +92,7 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
     final _progressText = HudScaffold.progressText(
       context,
       hide: _hideSpinner,
-      indicatorColors: Swatch(bright: Colors.redAccent, dark: Colors.yellowAccent),
+      indicatorColors: ModeColor(bright: Colors.redAccent, dark: Colors.yellowAccent),
       progressText: 'Standard Spinning for 3 seconds',
       scaffold: _scaffold,
     );
@@ -155,7 +156,7 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
             Container(
               child: WideAnimatedButton(
                 caption: 'Test Taps',
-                colors: ModeThemeData.productSwatch,
+                colors: ModeThemeData.productModeColor,
                 onDoubleTap: (action, dateTime) {
                   Log.t('Double Tap ${action.toString()} ${dateTime.toIso8601String()}');
                 },
@@ -238,7 +239,7 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
                   padding: const EdgeInsets.all(8.0),
                   child: IntervalTextWidget(
                     intervalData: IntervalData(DateTime.now()),
-                    textStyle: Theme.of(context).textTheme.title.copyWith(color: ModeThemeData.productSwatch.color(context)),
+                    textStyle: Theme.of(context).textTheme.title.copyWith(color: ModeThemeData.productModeColor.color(context)),
                   ),
                 ),
                 OvalImageTouchWidget(
@@ -251,21 +252,21 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     code: 404,
-                    colors: Swatch(bright: Colors.greenAccent, dark: Colors.redAccent),
+                    colors: ModeColor(bright: Colors.greenAccent, dark: Colors.redAccent),
                   ),
                   url: 'intentallyBad3',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     assets: [AssetNames.unknownPerson],
-                    colors: Swatch(bright: Colors.purpleAccent, dark: Colors.greenAccent),
+                    colors: ModeColor(bright: Colors.purpleAccent, dark: Colors.greenAccent),
                   ),
                   url: 'intentallyBad_4',
                 ),
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Images.spinningBall(context, ModeThemeData.primarySwatch),
+                      Images.spinningBall(context, ModeThemeData.primaryModeColor),
                       Center(child: Text('Error')),
                     ],
                   ),
@@ -274,7 +275,7 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Images.spinningBall(context, ModeThemeData.productSwatch),
+                      Images.spinningBall(context, ModeThemeData.productModeColor),
                       Center(child: Text('works')),
                     ],
                   ),
@@ -283,13 +284,13 @@ class _Exampler extends State<Exampler> with WidgetsBindingObserver {
                 OvalImageTouchWidget(
                   error: (context, url, error) => NetworkErrorImage(
                     widgetStack: <Widget>[
-                      Images.spinningBall(context, ModeThemeData.primarySwatch),
+                      Images.spinningBall(context, ModeThemeData.primaryModeColor),
                       Center(child: Text('works')),
                     ],
                   ),
                   placeholder: ModeThemeData.getCircularProgressIndicator(
                     context,
-                    colors: Swatch(bright: Colors.brown, dark: Colors.greenAccent),
+                    colors: ModeColor(bright: Colors.brown, dark: Colors.greenAccent),
                   ),
                   url: url,
                 ),

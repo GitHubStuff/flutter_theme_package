@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mode_color/flutter_mode_color.dart';
 
 /// Font sizes for the TextTheme.
 /// These are set here as they are used when creating light/dark mode for TextThemes.
@@ -77,72 +78,36 @@ double getTextSizes(TextSizes textSize, {double customSize}) {
   throw Exception('Unknown size ${textSize.toString()}');
 }
 
-/// Wrapper class for colors pairs for bright/light and dark modes
-class Swatch {
-  /// Create getter to prevent changes after instance creation
-  Color get bright => _bright;
-  Color get dark => _dark;
-  Color _bright;
-  Color _dark;
-
-  Swatch({@required Color bright, @required Color dark, double alpha = 1.0, double darkAlpha}) {
-    assert(bright != null);
-    assert(dark != null);
-    assert(alpha != null && (alpha >= 0.0 || alpha <= 1.0));
-    int red = bright.red;
-    int green = bright.green;
-    int blue = bright.blue;
-    _bright = Color.fromARGB((255.0 * alpha).toInt(), red, green, blue);
-    red = dark.red;
-    green = dark.green;
-    blue = dark.blue;
-    _dark = Color.fromARGB((255.0 * (darkAlpha ?? alpha)).toInt(), red, green, blue);
-  }
-
-  factory Swatch.mono({@required Color color, double alpha = 1.0}) {
-    return Swatch(bright: color, dark: color, alpha: alpha);
-  }
-
-  Color colorFor({Brightness brightness}) {
-    return (brightness == Brightness.light) ? bright : dark;
-  }
-
-  Color color(BuildContext context) {
-    final brightness = Theme.of(context).brightness;
-    return colorFor(brightness: brightness);
-  }
-}
-
 class ModeThemeData {
-  /// The following collection of color pairs (swatches) are used when constructing ThemeData to the color
+  /// The following collection of color pairs (modeColores) are used when constructing ThemeData to the color
   /// properties of widgets, text, backgrounds, etc.
-  /// Any changes to these swatches requires a re-build of the widget tree: ModeTheme.of(context).setBrightness(brightness);
+  /// Any changes to these modeColores requires a re-build of the widget tree: ModeTheme.of(context).setBrightness(brightness);
   /// -----------------------------------------------------------------------------------------------------------------------------
   /// Color pair that has the highest contracts in colors (eg: Brightness.Light would have a contrast of Colors.black)
-  static Swatch contrastColors = Swatch(bright: Colors.black87, dark: Colors.white54);
+  static ModeColor contrastColors = ModeColor(bright: Colors.black87, dark: Colors.white54);
 
   /// Color pair when widget (eg a button) is disabled
-  static Swatch disabledColors = Swatch(bright: Colors.grey, dark: Colors.blueGrey);
+  static ModeColor disabledColors = ModeColor(bright: Colors.grey, dark: Colors.blueGrey);
 
   /// Color pair to add brightness to icons to make sure they are visible in light/dark modes
-  static Swatch iconBrightness = Swatch(bright: Colors.grey, dark: Colors.black45);
+  static ModeColor iconBrightness = ModeColor(bright: Colors.grey, dark: Colors.black45);
 
   /// Color pair for icon color
-  static Swatch iconColors = Swatch(bright: Colors.black87, dark: Colors.white70);
+  static ModeColor iconColors = ModeColor(bright: Colors.black87, dark: Colors.white70);
 
   /// Color pair for primaryColor in a theme
-  static Swatch primarySwatch = Swatch(bright: Colors.green, dark: Colors.grey);
+  static ModeColor primaryModeColor = ModeColor(bright: Colors.green, dark: Colors.grey);
 
   /// Color pair to have an app-specific coloring for widgets
-  static Swatch productSwatch = Swatch(bright: Colors.orangeAccent, dark: Colors.amber);
+  static ModeColor productModeColor = ModeColor(bright: Colors.orangeAccent, dark: Colors.amber);
 
   /// Color pair for the background of scaffold (the screen palette)
-  static Swatch scaffoldColors = Swatch(bright: Colors.white, dark: Colors.black);
+  static ModeColor scaffoldColors = ModeColor(bright: Colors.white, dark: Colors.black);
 
   static CircularProgressIndicator _circularProgressIndicator;
 
-  static CircularProgressIndicator getCircularProgressIndicator(BuildContext context, {Swatch colors}) {
-    final color = (colors ?? productSwatch).color(context);
+  static CircularProgressIndicator getCircularProgressIndicator(BuildContext context, {ModeColor colors}) {
+    final color = (colors ?? productModeColor).color(context);
     return _circularProgressIndicator ??
         CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(color),
@@ -151,19 +116,19 @@ class ModeThemeData {
 
   static void setCircularProgressIndicator(CircularProgressIndicator indicator) => _circularProgressIndicator = indicator;
 
-  /// ButtonTheme is set to popular/most-common use settings. As with Swatch changes the widget tree requires a re-build
-  static setButtonTheme({Swatch swatch, double height = 42.0, ShapeBorder shape}) {
-    assert(swatch != null && swatch.bright != null && swatch.dark != null);
+  /// ButtonTheme is set to popular/most-common use settings. As with ModeColor changes the widget tree requires a re-build
+  static setButtonTheme({ModeColor modeColor, double height = 42.0, ShapeBorder shape}) {
+    assert(modeColor != null && modeColor.bright != null && modeColor.dark != null);
     assert(height > 0.0);
     shape ??= RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0));
     _buttonStyleBright = ButtonThemeData(
-      buttonColor: swatch.bright,
+      buttonColor: modeColor.bright,
       disabledColor: disabledColors.bright,
       height: height,
       shape: shape,
     );
     _buttonStyleDark = ButtonThemeData(
-      buttonColor: swatch.dark,
+      buttonColor: modeColor.dark,
       disabledColor: disabledColors.dark,
       height: height,
       shape: shape,
@@ -172,14 +137,14 @@ class ModeThemeData {
 
   /// Internal state for button themes
   static ButtonThemeData _buttonStyleBright = ButtonThemeData(
-    buttonColor: productSwatch.bright,
+    buttonColor: productModeColor.bright,
     disabledColor: disabledColors.bright,
     height: 42.0,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
   );
 
   static ButtonThemeData _buttonStyleDark = ButtonThemeData(
-    buttonColor: productSwatch.dark,
+    buttonColor: productModeColor.dark,
     disabledColor: disabledColors.dark,
     height: 42.0,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
@@ -229,7 +194,7 @@ class ModeThemeData {
     button: _kTypography.white.button.copyWith(
       fontFamily: fontFamily,
       fontSize: buttonFontSize,
-      color: productSwatch.bright,
+      color: productModeColor.bright,
     ),
   );
 
@@ -248,15 +213,15 @@ class ModeThemeData {
       button: _kTypography.black.button.copyWith(
         fontFamily: fontFamily,
         fontSize: buttonFontSize,
-        color: productSwatch.dark,
+        color: productModeColor.dark,
       ));
 
-  /// Constructor to create BRIGHT-mode theme data with all the variations detailed by the swatches and text builds
+  /// Constructor to create BRIGHT-mode theme data with all the variations detailed by the modeColores and text builds
   static ThemeData bright() {
     return _setter(brightness: Brightness.light);
   }
 
-  /// Constructor to create DARK-mode theme data with all the variations detailed by the swatches and text builds
+  /// Constructor to create DARK-mode theme data with all the variations detailed by the modeColores and text builds
   static ThemeData dark() {
     return _setter(brightness: Brightness.dark);
   }
@@ -265,16 +230,16 @@ class ModeThemeData {
   static ThemeData _setter({Brightness brightness}) {
     final isBright = (brightness == Brightness.light);
     return ThemeData().copyWith(
-      accentColor: isBright ? productSwatch.bright : productSwatch.dark,
+      accentColor: isBright ? productModeColor.bright : productModeColor.dark,
       accentIconTheme: IconThemeData(color: isBright ? iconColors.bright : iconColors.dark),
       brightness: isBright ? Brightness.light : Brightness.dark,
       buttonTheme: isBright ? _buttonStyleBright : _buttonStyleDark,
-      buttonColor: isBright ? productSwatch.bright : productSwatch.dark,
+      buttonColor: isBright ? productModeColor.bright : productModeColor.dark,
       floatingActionButtonTheme:
-          FloatingActionButtonThemeData(backgroundColor: isBright ? productSwatch.bright : productSwatch.dark),
+          FloatingActionButtonThemeData(backgroundColor: isBright ? productModeColor.bright : productModeColor.dark),
       iconTheme: IconThemeData(color: isBright ? iconColors.bright : iconColors.dark),
       inputDecorationTheme: !isBright ? _inputDecorationThemeBright() : _inputDecorationThemeDark(),
-      primaryColor: isBright ? primarySwatch.bright : primarySwatch.dark,
+      primaryColor: isBright ? primaryModeColor.bright : primaryModeColor.dark,
       primaryIconTheme: isBright ? _iconThemeDataBright() : _iconThemeDataDark(),
       scaffoldBackgroundColor: isBright ? scaffoldColors.bright : scaffoldColors.dark,
       textTheme: isBright ? _kTextThemeBlack : _kTextThemeWhite,
